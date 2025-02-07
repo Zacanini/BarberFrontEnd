@@ -5,6 +5,8 @@ import AOS from 'aos';
 import '@fontsource/oswald';
 import 'aos/dist/aos.css';
 import { FcGoogle } from 'react-icons/fc';
+import AuthService from '../services/AuthService';
+import auth from '../auth/auth';
 
 export default function Page() {
     useEffect(() => {
@@ -15,21 +17,27 @@ export default function Page() {
         });
     }, []);
 
-    // Função para rolar até a próxima seção
+    useEffect(() => {
+        const loginData = AuthService.handleLoginRedirect();
+        if (loginData) {
+            console.log('Login realizado com sucesso:', loginData.user);
+            window.location.href = '/dashboard';
+        }
+    }, []);
+
+    const handleLogin = () => {
+        AuthService.loginWithGoogle('shop');
+    };
+
     const handleScroll = () => {
         const nextSection = document.getElementById('content-section');
         if (nextSection) {
             nextSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
-    const handleGoogleAuth = (role) => {
-        window.location.href = `http://localhost:3030/auth/google?role=${role}`;
-      }
 
     return (
         <div style={{ minHeight: '100vh', fontFamily: 'Oswald, sans-serif' }}>
-
-            {/* Seção da Logo com indicador de scroll */}
             <div style={{
                 backgroundColor: '#daa520',
                 display: 'flex',
@@ -45,15 +53,13 @@ export default function Page() {
                     data-aos="fade-down"
                     data-aos-delay="150"
                 />
-
-                {/* Indicador de Scroll Animado */}
                 <div
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         position: 'absolute',
-                        bottom: '5px', // Ajustado para ficar mais abaixo
+                        bottom: '5px',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         animation: 'bounce 2s infinite',
@@ -63,9 +69,8 @@ export default function Page() {
                     }}
                     data-aos="fade-down"
                     data-aos-delay="150"
-                    onClick={handleScroll} // Adicionado evento de clique
+                    onClick={handleScroll}
                 >
-                    {/* Seta para baixo */}
                     <svg
                         width="40"
                         height="40"
@@ -102,9 +107,8 @@ export default function Page() {
                 </div>
             </div>
 
-            {/* Seção de Conteúdo */}
             <div
-                id="content-section" // Adicionado ID para o scroll
+                id="content-section"
                 style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -120,7 +124,6 @@ export default function Page() {
                     textAlign: 'center',
                     width: '100%'
                 }}>
-                    {/* Parágrafos existentes com AOS */}
                     <h1 style={textStyle} data-aos="fade-right" data-aos-delay="300">
                         <span style={titleStyle}>
                             TRANSFORME SUA BARBEARIA EM UMA EXPERIÊNCIA DIGITAL ÚNICA !
@@ -144,7 +147,6 @@ export default function Page() {
                         da concorrência.
                     </h1>
 
-                    {/* Novos parágrafos adicionados */}
                     <h1 style={textStyle} data-aos="fade-right" data-aos-delay="300">
                         <span style={titleStyle}>
                             AGENDA ONLINE: PRATICIDADE E ORGANIZAÇÃO
@@ -174,7 +176,7 @@ export default function Page() {
                     </h1>
                 </div>
             </div>
-            
+
             <div style={{
                 backgroundColor: '#0D0907',
                 padding: '50px 0',
@@ -190,13 +192,13 @@ export default function Page() {
                     maxWidth: '80%',
                     margin: '0 auto 40px'
                 }}>
-                    CADASTRE-SE AGORA EM NOSSO APLICATIVO E APROVEITE <span style={{fontSize:'3.2rem', color:'white'}}> 7 DIAS GRÁTIS</span> SEM COMPROMISSO!
+                    CADASTRE-SE AGORA EM NOSSO APLICATIVO E APROVEITE <span style={{ fontSize: '3.2rem', color: 'white' }}> 7 DIAS GRÁTIS</span> SEM COMPROMISSO!
                 </h1>
 
                 <button
-                    onClick={() => handleGoogleAuth('shop')}
+                    onClick={handleLogin}
                     style={{
-                        color:'#030303',
+                        color: '#030303',
                         display: 'flex',
                         alignItems: 'center',
                         backgroundColor: '#ffffff',
@@ -214,12 +216,11 @@ export default function Page() {
                     data-aos="zoom-in"
                     data-aos-delay="200"
                 >
-                    <FcGoogle size={24} style={{ marginRight: '12px',  }} />
+                    <FcGoogle size={24} style={{ marginRight: '12px', }} />
                     Cadastre-se com Google
                 </button>
             </div>
 
-            {/* Estilos globais inline */}
             <style>
                 {`
                     @keyframes bounce {
@@ -239,7 +240,6 @@ export default function Page() {
     );
 }
 
-// Estilos extraídos para constantes para melhor manutenção
 const textStyle = {
     fontSize: '2rem',
     fontWeight: 'bold',
