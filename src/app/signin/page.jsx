@@ -37,8 +37,13 @@ export default function SignInPage() {
     boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
     width: '100%',
     justifyContent: 'center',
-    position: 'relative', // para posicionamento relativo do ponto
-    overflow: 'hidden',   // evita que a animação extrapole os limites
+    position: 'relative', // para posicionamento do pseudo-elemento
+    overflow: 'hidden',   // garante que o contorno animado não extrapole os limites
+  };
+
+  const buttonHoverStyle = {
+    boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+    transform: 'scale(1.05)',
   };
 
   return (
@@ -51,109 +56,62 @@ export default function SignInPage() {
       alignItems: 'center',
       paddingTop: '40px'
     }}>
-      <img
-        style={{ 
-          width: '500px',
-          marginBottom: '40px'
-        }}
-        src="/logo.svg"
-        alt="Logo"
-        data-aos="fade-down"
-        data-aos-delay="150"
-      />
+      <div style={{ backgroundColor: '#ff7c20', borderRadius: '10px', padding: '20px', boxShadow: '0 18px 36px rgba(0,0,0,0.2)' }}>
+        <img
+          style={{ 
+            width: '500px',
+            marginBottom: '40px'
+          }}
+          src="/logo.svg"
+          alt="Logo"
+          data-aos="fade-down"
+          data-aos-delay="150"
+        />
 
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '30px',
-        width: '100%',
-        maxWidth: '500px',
-        alignItems: 'center'
-      }}>
-        <button
-          onClick={() => AuthService.loginWithGoogle('shop')}
-          style={buttonStyle}
-          className="animated-button"
-          data-aos="zoom-in"
-        >
-          <FcGoogle size={24} style={{ marginRight: '12px' }} />
-          Entrar como Barbeiro
-          <span className="moving-dot"></span>
-        </button>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '30px',
+          width: '100%',
+          maxWidth: '500px',
+          alignItems: 'center'
+        }}>
+          <button
+            onClick={() => AuthService.loginWithGoogle('shop')}
+            style={{...buttonStyle}}
+            data-aos="zoom-in"
+            onMouseOver={(e) => {
+              e.currentTarget.style.boxShadow = buttonHoverStyle.boxShadow;
+              e.currentTarget.style.transform = buttonHoverStyle.transform;
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.boxShadow = buttonStyle.boxShadow;
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <FcGoogle size={24} style={{ marginRight: '12px' }} />
+            Entrar como Barbeiro
+          </button>
 
-        <button
-          onClick={() => AuthService.loginWithGoogle('user')}
-          style={buttonStyle}
-          className="animated-button"
-          data-aos="zoom-in"
-          data-aos-delay="200"
-        >
-          <FcGoogle size={24} style={{ marginRight: '12px' }} />
-          Entrar como Cliente
-          <span className="moving-dot"></span>
-        </button>
+          <button
+            onClick={() => AuthService.loginWithGoogle('user')}
+            style={{...buttonStyle}}
+            data-aos="zoom-in"
+            data-aos-delay="200"
+            onMouseOver={(e) => {
+              e.currentTarget.style.boxShadow = buttonHoverStyle.boxShadow;
+              e.currentTarget.style.transform = buttonHoverStyle.transform;
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.boxShadow = buttonStyle.boxShadow;
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <FcGoogle size={24} style={{ marginRight: '12px' }} />
+            Entrar como Cliente
+          </button>
+        </div>
       </div>
-
-      <style jsx>{`
-        /* O ponto (e seu rastro) ficam invisíveis até o hover */
-        .animated-button .moving-dot {
-          position: absolute;
-          width: 13px;
-          height: 10px;
-          border-radius: 50%;
-          background: black;
-          opacity: 0;
-          /* Garantir que o ponto fique com o centro na posição definida */
-          transform: translate(-50%, -50%);
-          /* Animação com duração total de 4s */
-          animation: moveDot 4s linear infinite;
-        }
-        .animated-button:hover .moving-dot {
-          opacity: 1;
-        }
-        /* Pseudo-elemento para o rastro com blur e leve atraso */
-        .animated-button .moving-dot::after {
-          content: "";
-          position: absolute;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: black;
-          filter: blur(3px);
-          opacity: 0.8;
-          transform: translate(-50%, -50%);
-          animation: moveDot 4s linear infinite;
-          animation-delay: 0.3s;
-        }
-        /* 
-          Animação para mover o ponto:
-          - Os trechos horizontais (topo e base) duram 37,5% do ciclo cada (1,5s)
-          - Os trechos verticais (direita e esquerda) duram 12,5% cada (0,5s)
-          As posições definem o centro do ponto exatamente nos cantos.
-        */
-        @keyframes moveDot {
-          0% {
-            left: 0;
-            top: 0;
-          }
-          37.5% {
-            left: 100%;
-            top: 0;
-          }
-          50% {
-            left: 100%;
-            top: 100%;
-          }
-          87.5% {
-            left: 0;
-            top: 100%;
-          }
-          100% {
-            left: 0;
-            top: 0;
-          }
-        }
-      `}</style>
     </div>
   );
 }

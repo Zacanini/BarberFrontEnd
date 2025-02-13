@@ -15,18 +15,6 @@ export default function Page() {
         });
     }, []);
 
-    useEffect(() => {
-        const loginData = AuthService.handleLoginRedirect();
-        if (loginData) {
-            console.log('Login realizado com sucesso:', loginData.user);
-            window.location.href = '/dashboard';
-        }
-    }, []);
-
-    const handleLogin = () => {
-        AuthService.loginWithGoogle('shop');
-    };
-
     const handleScroll = () => {
         const nextSection = document.getElementById('content-section');
         if (nextSection) {
