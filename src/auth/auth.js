@@ -1,7 +1,7 @@
 // src/utils/auth.js
 const auth = {
   isAuthenticated: () => {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem('token');
     return !!token; // Retorna true se o token existir
   },
 
