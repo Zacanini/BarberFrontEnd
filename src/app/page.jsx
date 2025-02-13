@@ -4,9 +4,7 @@ import { useEffect } from 'react';
 import AOS from 'aos';
 import '@fontsource/oswald';
 import 'aos/dist/aos.css';
-import { FcGoogle } from 'react-icons/fc';
 import AuthService from '../services/AuthService';
-import auth from '../auth/auth';
 
 export default function Page() {
     useEffect(() => {
@@ -196,7 +194,7 @@ export default function Page() {
                 </h1>
 
                 <button
-                    onClick={handleLogin}
+                    onClick={() => window.location.href = '/signin'}
                     style={{
                         color: '#030303',
                         display: 'flex',
@@ -216,8 +214,7 @@ export default function Page() {
                     data-aos="zoom-in"
                     data-aos-delay="200"
                 >
-                    <FcGoogle size={24} style={{ marginRight: '12px', }} />
-                    Cadastre-se com Google
+                    Cadastre-se Agora
                 </button>
             </div>
 
