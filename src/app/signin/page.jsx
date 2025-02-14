@@ -15,10 +15,10 @@ export default function SignInPage() {
       offset: 30,
     });
 
-    const loginData = AuthService.handleLoginRedirect();
-    if (loginData) {
-      console.log('Login realizado com sucesso:', loginData.user);
-      window.location.href = '/login-sucess';
+    // Verifica se já está autenticado
+    const token = AuthService.checkAuthToken();
+    if (token) {
+      window.location.href = '/login-success';
     }
   }, []);
 
@@ -56,7 +56,7 @@ export default function SignInPage() {
       alignItems: 'center',
       paddingTop: '40px'
     }}>
-      <div style={{ backgroundColor: '#ff7c20', borderRadius: '10px', padding: '20px', boxShadow: '0 18px 36px rgba(0,0,0,0.2)' }}>
+      <div style={{ backgroundColor: '#ff7c20', borderRadius: '10px', padding: '20px', boxShadow: '0 18px 36px rgba(0,0,0,0.2)', marginBottom: '40px' }}>
         <img
           style={{ 
             width: '500px',
@@ -68,14 +68,15 @@ export default function SignInPage() {
           data-aos-delay="150"
         />
 
-        <div style={{
+        <div 
+          style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '30px',
           width: '100%',
           maxWidth: '500px',
-          alignItems: 'center'
-        }}>
+          alignItems: 'center',
+          }}>
           <button
             onClick={() => AuthService.loginWithGoogle('shop')}
             style={{...buttonStyle}}
@@ -92,7 +93,6 @@ export default function SignInPage() {
             <FcGoogle size={24} style={{ marginRight: '12px' }} />
             Entrar como Barbeiro
           </button>
-
           <button
             onClick={() => AuthService.loginWithGoogle('user')}
             style={{...buttonStyle}}
@@ -110,8 +110,11 @@ export default function SignInPage() {
             <FcGoogle size={24} style={{ marginRight: '12px' }} />
             Entrar como Cliente
           </button>
+
         </div>
+
       </div>
+
     </div>
   );
 }
