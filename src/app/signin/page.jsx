@@ -47,18 +47,19 @@ export default function SignInPage() {
   };
 
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      fontFamily: 'Oswald, sans-serif',
-      backgroundColor: '#daa520',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      paddingTop: '40px'
-    }}>
+    <div
+      style={{
+        minHeight: '100vh',
+        fontFamily: 'Oswald, sans-serif',
+        backgroundColor: '#daa520',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: '40px'
+      }}>
       <div style={{ backgroundColor: '#ff7c20', borderRadius: '10px', padding: '20px', boxShadow: '0 18px 36px rgba(0,0,0,0.2)', marginBottom: '40px' }}>
         <img
-          style={{ 
+          style={{
             width: '500px',
             marginBottom: '40px'
           }}
@@ -67,19 +68,18 @@ export default function SignInPage() {
           data-aos="fade-down"
           data-aos-delay="150"
         />
-
-        <div 
+        <div
           style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '30px',
-          width: '100%',
-          maxWidth: '500px',
-          alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '30px',
+            width: '100%',
+            maxWidth: '500px',
+            alignItems: 'center',
           }}>
           <button
             onClick={() => AuthService.loginWithGoogle('shop')}
-            style={{...buttonStyle}}
+            style={{ ...buttonStyle }}
             data-aos="zoom-in"
             onMouseOver={(e) => {
               e.currentTarget.style.boxShadow = buttonHoverStyle.boxShadow;
@@ -95,7 +95,7 @@ export default function SignInPage() {
           </button>
           <button
             onClick={() => AuthService.loginWithGoogle('user')}
-            style={{...buttonStyle}}
+            style={{ ...buttonStyle }}
             data-aos="zoom-in"
             data-aos-delay="200"
             onMouseOver={(e) => {

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import AOS from 'aos';
 import '@fontsource/oswald';
 import 'aos/dist/aos.css';
-import AuthService from '../services/AuthService';
 
 export default function Page() {
     useEffect(() => {
