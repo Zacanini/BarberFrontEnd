@@ -4,9 +4,10 @@
 import { useEffect, useContext } from 'react';
 import { AuthContext } from '../../app/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Loading from '../components/Loading';
 
 export default function Page() {
-  const { user, token, logout, isAuthReady } = useContext(AuthContext);
+  const { isAuthReady, token } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,22 +17,25 @@ export default function Page() {
 
     if (!token) {
       router.push('/signin');
+      return;
     }
+
+    // Redireciona para o dashboard após 5 segundos
+    const timeoutId = setTimeout(() => {
+      router.push('/dashBoard');
+    }, 2000);
+
+    // Limpa o timeout se o componente for desmontado
+    return () => clearTimeout(timeoutId);
   }, [token, isAuthReady, router]);
 
   if (!isAuthReady) {
-    return <div>Carregando...</div>; // Ou um spinner
-  }
-
-  if (!user) {
-    return null; // Não renderiza nada se não estiver autenticado (já redirecionou)
+    return <Loading />; // Use o componente Loading aqui
   }
 
   return (
-    <>
-      <div>Cadastro realizado com sucesso</div>
-      <p>Bem-vindo, {user.email}!</p>
-      <button onClick={logout}>deslogar</button>
-    </>
+    <div>
+      <Loading />
+    </div>
   );
 }
