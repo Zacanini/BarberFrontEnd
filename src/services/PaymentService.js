@@ -5,32 +5,43 @@ const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('token') : ''}`
   }
 });
 
 const PaymentService = {
-  criarPayment: async (dadosPayment) => {
+  criarPayment: async (dadosPayment, token) => {
     try {
-      const response = await api.post('/payments', dadosPayment);
+      const response = await api.post('/payments', dadosPayment, {
+        header: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao criar pagamento');
     }
   },
 
-  listarPayments: async () => {
+  listarPayments: async (token) => {
     try {
-      const response = await api.get('/payments');
+      const response = await api.get('/payments', {
+        header: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao listar pagamentos');
     }
   },
 
-  obterPaymentPorId: async (id) => {
+  obterPaymentPorId: async (id, token) => {
     try {
-      const response = await api.get(`/payments/${id}`);
+      const response = await api.get(`/payments/${id}`, {
+        header: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -40,9 +51,13 @@ const PaymentService = {
     }
   },
 
-  atualizarPayment: async (id, dadosAtualizados) => {
+  atualizarPayment: async (id, dadosAtualizados , token) => {
     try {
-      const response = await api.put(`/payments/${id}`, dadosAtualizados);
+      const response = await api.put(`/payments/${id}`, dadosAtualizados , {
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -52,9 +67,14 @@ const PaymentService = {
     }
   },
 
-  deletarPayment: async (id) => {
+  deletarPayment: async (id , token) => {
     try {
-      await api.delete(`/payments/${id}`);
+      await api.delete(`/payments/${id}` , {
+        header:
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       return true;
     } catch (error) {
       if (error.response?.status === 404) {

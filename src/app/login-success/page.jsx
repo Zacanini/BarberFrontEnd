@@ -23,7 +23,7 @@ export default function Page() {
     // Redireciona para o dashboard após 5 segundos
     const timeoutId = setTimeout(() => {
       router.push('/dashBoard');
-    }, 2000);
+    }, );
 
     // Limpa o timeout se o componente for desmontado
     return () => clearTimeout(timeoutId);

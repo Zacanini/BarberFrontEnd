@@ -5,32 +5,43 @@ const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('token') : ''}`
   }
 });
 
 const UserService = {
-  criarUser: async (dadosUser) => {
+  criarUser: async (dadosUser , token) => {
     try {
-      const response = await api.post('/users', dadosUser);
+      const response = await api.post('/users', dadosUser , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao criar usuário');
     }
   },
 
-  listarUsers: async () => {
+  listarUsers: async (token) => {
     try {
-      const response = await api.get('/users');
+      const response = await api.get('/users' , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao listar usuários');
     }
   },
 
-  obterUserPorId: async (id) => {
+  obterUserPorId: async (id , token) => {
     try {
-      const response = await api.get(`/users/${id}`);
+      const response = await api.get(`/users/${id}` , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -40,9 +51,13 @@ const UserService = {
     }
   },
 
-  atualizarUser: async (id, dadosAtualizados) => {
+  atualizarUser: async (id, dadosAtualizados , token) => {
     try {
-      const response = await api.put(`/users/${id}`, dadosAtualizados);
+      const response = await api.put(`/users/${id}`, dadosAtualizados , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -52,9 +67,13 @@ const UserService = {
     }
   },
 
-  deletarUser: async (id) => {
+  deletarUser: async (id , token) => {
     try {
-      await api.delete(`/users/${id}`);
+      await api.delete(`/users/${id}`, {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return true;
     } catch (error) {
       if (error.response?.status === 404) {

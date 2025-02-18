@@ -5,32 +5,43 @@ const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('token') : ''}`
   }
 });
 
 const ServicoService = {
-  criarServico: async (dadosServico) => {
+  criarServico: async (dadosServico, token) => {
     try {
-      const response = await api.post('/servicos', dadosServico);
+      const response = await api.post('/servicos', dadosServico, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao criar serviço');
     }
   },
 
-  listarServicos: async () => {
+  listarServicos: async (token) => {
     try {
-      const response = await api.get('/servicos');
+      const response = await api.get('/servicos', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao listar serviços');
     }
   },
 
-  obterServicoPorId: async (id) => {
+  obterServicoPorId: async (id, token) => {
     try {
-      const response = await api.get(`/servicos/${id}`);
+      const response = await api.get(`/servicos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -40,9 +51,13 @@ const ServicoService = {
     }
   },
 
-  atualizarServico: async (id, dadosAtualizados) => {
+  atualizarServico: async (id, dadosAtualizados, token) => {
     try {
-      const response = await api.put(`/servicos/${id}`, dadosAtualizados);
+      const response = await api.put(`/servicos/${id}`, dadosAtualizados, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -52,9 +67,13 @@ const ServicoService = {
     }
   },
 
-  deletarServico: async (id) => {
+  deletarServico: async (id, token) => {
     try {
-      await api.delete(`/servicos/${id}`);
+      await api.delete(`/servicos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       return true;
     } catch (error) {
       if (error.response?.status === 404) {

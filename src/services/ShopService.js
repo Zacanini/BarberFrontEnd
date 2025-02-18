@@ -5,32 +5,43 @@ const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('token') : ''}`
   }
 });
 
 const ShopService = {
-  criarShop: async (dadosShop) => {
+  criarShop: async (dadosShop , token) => {
     try {
-      const response = await api.post('/shops', dadosShop);
+      const response = await api.post('/shops', dadosShop , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao criar barbearia');
     }
   },
 
-  listarShops: async () => {
+  listarShops: async (token) => {
     try {
-      const response = await api.get('/shops');
+      const response = await api.get('/shops' , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.mensagem || 'Erro ao listar barbearias');
     }
   },
 
-  obterShopPorId: async (id) => {
+  obterShopPorId: async (id , token) => {
     try {
-      const response = await api.get(`/shops/${id}`);
+      const response = await api.get(`/shops/${id}` , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -40,9 +51,13 @@ const ShopService = {
     }
   },
 
-  atualizarShop: async (id, dadosAtualizados) => {
+  atualizarShop: async (id, dadosAtualizados , token) => {
     try {
-      const response = await api.put(`/shops/${id}`, dadosAtualizados);
+      const response = await api.put(`/shops/${id}`, dadosAtualizados , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -52,9 +67,13 @@ const ShopService = {
     }
   },
 
-  deletarShop: async (id) => {
+  deletarShop: async (id , token) => {
     try {
-      await api.delete(`/shops/${id}`);
+      await api.delete(`/shops/${id}` , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return true;
     } catch (error) {
       if (error.response?.status === 404) {

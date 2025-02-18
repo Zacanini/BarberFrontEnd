@@ -1,36 +1,48 @@
 // services/mpService.js
 import axios from 'axios';
+import { headers } from 'next/headers';
 
 const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/mp`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('token') : ''}`
   }
 });
 
 const MercadoPagoService = {
-  criarPreferenciaBasic: async () => {
+  criarPreferenciaBasic: async (token) => {
     try {
-      const response = await api.post('/create-preference-basic');
+      const response = await api.post('/create-preference-basic' , {
+        headers: {
+          Authorization:`Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Erro ao criar pagamento do plano Basic');
     }
   },
 
-  criarPreferenciaMedium: async () => {
+  criarPreferenciaMedium: async (token) => {
     try {
-      const response = await api.post('/create-preference-medio');
+      const response = await api.post('/create-preference-medio',{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Erro ao criar pagamento do plano Medium');
     }
   },
 
-  criarPreferenciaPremium: async () => {
+  criarPreferenciaPremium: async (token) => {
     try {
-      const response = await api.post('/create-preference-premium');
+      const response = await api.post('/create-preference-premium',{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Erro ao criar pagamento do plano Premium');
