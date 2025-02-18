@@ -56,18 +56,7 @@ export default function Page() {
                     data-aos-delay="150"
                     onClick={handleScroll}
                 >
-                    <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#030303"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <path d="M12 5v14M19 12l-7 7-7-7" />
-                    </svg>
+                    
                     <div style={{
                         fontSize: '1rem',
                         color: '#030303',
@@ -77,18 +66,7 @@ export default function Page() {
                     }}>
                         Clique para ver mais
                     </div>
-                    <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#030303"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <path d="M12 5v14M19 12l-7 7-7-7" />
-                    </svg>
+                    
                 </div>
             </div>
 
