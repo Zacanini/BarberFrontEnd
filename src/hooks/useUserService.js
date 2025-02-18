@@ -14,3 +14,5 @@ const useUserService = () => {
         getUserById: async (id) => await UserService.getUserById(id, token)
     }), [token]);
 }
+
+export default useUserService;

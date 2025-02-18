@@ -1,0 +1,181 @@
+/* BarberAdd.module.css */
+.container {
+    font-family: 'Oswald', sans-serif;
+}
+
+.openButton {
+    background: #ff7c20;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin: 1rem 0;
+}
+
+.openButton:hover {
+    background: #ff6b00;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popupContent {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+    border: 1px solid #ff7c20;
+}
+.input, .select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #eeeeee;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Oswald', sans-serif;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    color: #333; /* Texto mais escuro */
+}
+
+.input:hover, .select:hover {
+    border-color: #ff7c20;
+}
+
+.input:focus, .select:focus {
+    border-color: #ff7c20;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 124, 32, 0.2);
+}
+.formGroup {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: #daa520;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+}
+.header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    transition: transform 0.2s;
+}
+
+.closeButton:hover {
+    transform: scale(1.2);
+}
+
+.formContainer {
+    padding: 2rem;
+}
+
+/* Mantenha os estilos anteriores do formGroup, label, input, etc. */
+
+.buttonGroup {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.button {
+    background: #ff7c20;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: #ff6b00;
+}
+
+.cancelButton {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.cancelButton:hover {
+    background: #eee;
+}
+
+.error {
+    color: #dc3545;
+    background: #ffe6e6;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: -1rem 0 2rem 0;
+    border: 2px solid #ffcccc;
+    font-size: 0.9rem;
+}
+
+.success {
+    color: #28a745;
+    background: #e6ffe6;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: -1rem 0 2rem 0;
+    border: 2px solid #b3ffb3;
+    font-size: 0.9rem;
+}

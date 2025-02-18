@@ -1,33 +1,42 @@
 "use client";
 
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import useAgendaService from '../../hooks/useAgendaService';
 import { AuthContext } from '../../app/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Loading from '../components/Loading';
 import styles from '../styles/DashBoard.module.css';
-import { FiRefreshCw, FiLogOut } from 'react-icons/fi';
+import { FiLogOut } from 'react-icons/fi';
+import useUserService from '@/hooks/useUserService';
+import useShopService from '@/hooks/useShopService';
+import BarberAdd from '../components/dashBoard/BarberAdd';
 
 const DashBoard = () => {
-    const agendaService = useAgendaService();
-    const [agendas, setAgendas] = useState([]);
+    const userService = useUserService();
+    const shopService = useShopService();
+    const [userLoged, setUserLoged] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const { token, isAuthReady, user, logout } = useContext(AuthContext);
     const router = useRouter();
 
-    const fetchAgendas = useCallback(async () => {
-        setLoading(true);
-        try {
-            const data = await agendaService.listarAgendas();
-            setAgendas(data);
-            setError(null);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
+    const getUser = useCallback(async () => {
+        if(user.role === 'shop'){
+            try {
+                const data = await shopService.obterShopPorId(user.id);
+                setUserLoged(data);
+            } catch (error) {
+                setError(error.message);
+            }
         }
-    }, [token, agendaService]);
+        if(user.role === 'user'){
+            try {
+                const data = await userService.getUserById(user.id);
+                setUserLoged(data);
+            } catch (error) {
+                setError(error.message);
+            }
+        }
+    }, [user, shopService, userService]);
 
     useEffect(() => {
         if (!isAuthReady) return;
@@ -35,8 +44,8 @@ const DashBoard = () => {
             router.push('/signin');
             return;
         }
-        fetchAgendas();
-    }, [token, isAuthReady, router, fetchAgendas]);
+        getUser();
+    }, [token, isAuthReady, router, getUser]);
 
     const handleLogout = () => {
         logout();
@@ -57,17 +66,9 @@ const DashBoard = () => {
 
             <div className={styles.header}>
                 <h1 className={styles.welcomeMessage}>
-                    Bem-vindo, {user?.email}!
+                    Bem-vindo, {userLoged.nome}!
                 </h1>
                 <div className={styles.controls}>
-                    <button
-                        className={styles.atualizarButton}
-                        onClick={fetchAgendas}
-                        disabled={loading}
-                    >
-                        <FiRefreshCw size={18} />
-                        {loading ? 'Carregando...' : 'Atualizar'}
-                    </button>
                     <button
                         className={styles.logoutButton}
                         onClick={handleLogout}
@@ -78,46 +79,7 @@ const DashBoard = () => {
                 </div>
             </div>
 
-            <div className={styles.tableContainer}>
-                {error && (
-                    <div className={styles.errorMessage}>
-                        Erro ao carregar agendas: {error}
-                    </div>
-                )}
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Serviço</th>
-                            <th>Barbearia</th>
-                            <th>Barbeiro</th>
-                            <th>Cliente</th>
-                            <th>Data</th>
-                            <th>Horário</th>
-                            <th>Valor</th>
-                            <th>Pagamento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {agendas.map((agenda) => (
-                            <tr key={agenda.id}>
-                                <td>{agenda.nomeServico}</td>
-                                <td>{agenda.idShop}</td>
-                                <td>{agenda.idBarber}</td>
-                                <td>{agenda.idUser}</td>
-                                <td>
-                                    {new Date(agenda.dataMarcada).toLocaleDateString('pt-BR')}
-                                </td>
-                                <td>{agenda.horario}</td>
-                                <td>
-                                    R$ {agenda.valorDoServico.toFixed(2).replace('.', ',')}
-                                </td>
-                                <td>{agenda.formaDePagamento}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            <BarberAdd userLoged={userLoged} />
         </div>
     );
 };
