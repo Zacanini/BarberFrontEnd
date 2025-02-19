@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FaHome, FaUser, FaCalendarAlt, FaCog, FaBars } from 'react-icons/fa';
+import { FaHome, FaUser, FaCalendarAlt, FaBars , FaCut } from 'react-icons/fa';
 import '../styles/NavBar.css';
 
 const NavBar = () => {
-    const [isOpen, setIsOpen] = useState(true); // Inicia aberto por padrão
+    const [isOpen, setIsOpen] = useState(false);
 
     const toggleNavBar = () => {
         setIsOpen(!isOpen);
@@ -13,8 +13,8 @@ const NavBar = () => {
     return (
         <div className={`navbar ${isOpen ? 'open' : 'closed'}`}>
             <ul className="navbar-nav">
-                <li className="nav-item" >
-                    <a className="nav-link" onClick={toggleNavBar} >
+                <li className="nav-item">
+                    <a className="nav-link" onClick={toggleNavBar}>
                         <FaBars className="nav-icon" />
                     </a>
                 </li>
@@ -45,7 +45,7 @@ const NavBar = () => {
                 <li className="nav-item">
                     <Link href="/barber/servicos" className="nav-link" legacyBehavior>
                         <a className="nav-link">
-                            <FaCog className="nav-icon" />
+                            <FaCut className="nav-icon" /> {/* Use o ícone FaCut */}
                             <span className="nav-text">Serviços</span>
                         </a>
                     </Link>

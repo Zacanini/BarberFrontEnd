@@ -85,7 +85,7 @@ const ServicosPage = () => {
           <FiPlus /> Criar Serviço
         </button>
         {error && <p className={styles.error}>{error}</p>}
-        <div className={styles.servicosList}>
+        <div className={styles.servicosGrid}>
           {servicos.map((servico) => (
             <div key={servico.id} className={styles.servicoItem}>
               <div className={styles.servicoInfo}>
