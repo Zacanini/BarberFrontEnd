@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { AuthContext } from '../../app/context/AuthContext';
+import { AuthContext } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Loading from '../components/Loading';
-import styles from '../styles/DashBoard.module.css';
+import Loading from '../../components/Loading';
+import styles from '../../styles/DashBoard.module.css';
 import { FiLogOut } from 'react-icons/fi';
 import useUserService from '@/hooks/useUserService';
 import useShopService from '@/hooks/useShopService';
-import BarberAdd from '../components/dashBoard/BarberAdd';
-import NavBar from '../components/NavBar';
+import BarberAdd from '../../components/dashBoard/BarberAdd';
+import NavBar from '../../components/NavBar';
 
 const DashBoard = () => {
     const userService = useUserService();
@@ -53,7 +53,7 @@ const DashBoard = () => {
 
     const handleLogout = () => {
         logout();
-        router.push('/signin');
+        router.push('/pages/signin');
     };
 
     if (!isAuthReady) {

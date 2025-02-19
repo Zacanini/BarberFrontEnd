@@ -2,9 +2,9 @@
 "use client";
 
 import { useEffect, useContext } from 'react';
-import { AuthContext } from '../../app/context/AuthContext';
+import { AuthContext } from '../../../app/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Loading from '../components/Loading';
+import Loading from '../../components/Loading';
 
 export default function Page() {
   const { isAuthReady, token ,isTokenExpired} = useContext(AuthContext);
@@ -16,13 +16,13 @@ export default function Page() {
     }
 
     if (!token || isTokenExpired(token)) {
-      router.push('/signin'); // Redireciona para a página de login
+      router.push('/pages/signin'); // Redireciona para a página de login
       return;
     }
 
     // Redireciona para o dashboard após 5 segundos
     const timeoutId = setTimeout(() => {
-      router.push('/dashBoard');
+      router.push('/pages/identification');
     }, );
 
     // Limpa o timeout se o componente for desmontado

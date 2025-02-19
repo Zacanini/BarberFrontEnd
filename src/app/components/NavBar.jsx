@@ -19,7 +19,7 @@ const NavBar = () => {
                     </a>
                 </li>
                 <li className="nav-item">
-                    <Link href="/dashBoard" className="nav-link" legacyBehavior>
+                    <Link href="/pages/dashBoard" className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaHome className="nav-icon" />
                             <span className="nav-text">Início</span>
@@ -27,7 +27,7 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href="/barber/perfil" className="nav-link" legacyBehavior>
+                    <Link href="/pages/barber/perfil" className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaUser className="nav-icon" />
                             <span className="nav-text">Perfil</span>
@@ -35,7 +35,7 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href="/agendamentos" className="nav-link" legacyBehavior>
+                    <Link href="/pages/agendamentos" className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaCalendarAlt className="nav-icon" />
                             <span className="nav-text">Agendamentos</span>
@@ -43,7 +43,7 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href="/barber/servicos" className="nav-link" legacyBehavior>
+                    <Link href="/pages/barber/servicos" className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaCut className="nav-icon" /> {/* Use o ícone FaCut */}
                             <span className="nav-text">Serviços</span>

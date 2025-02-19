@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Loading from '../../components/Loading';
-import styles from '../../styles/Profile.module.css';
+import Loading from '../../../components/Loading';
+import styles from '../../../styles/Profile.module.css';
 import { FiEdit, FiClock, FiMapPin, FiPhone, FiX } from 'react-icons/fi';
 import useShopService from '@/hooks/useShopService';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../../components/NavBar';
 import ReactDOM from 'react-dom';
 
 const Modal = ({ children, title, onClose }) => {

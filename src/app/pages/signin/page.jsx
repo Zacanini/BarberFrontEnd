@@ -5,7 +5,7 @@ import AOS from 'aos';
 import '@fontsource/oswald';
 import 'aos/dist/aos.css';
 import { FcGoogle } from 'react-icons/fc';
-import AuthService from '../../services/AuthService';
+import AuthService from '../../../services/AuthService';
 
 export default function SignInPage() {
   useEffect(() => {
@@ -17,8 +17,8 @@ export default function SignInPage() {
 
     // Verifica se já está autenticado
     const token = AuthService.checkAuthToken();
-    if (token) {
-      window.location.href = '/login-success';
+    if (token && !AuthService.isTokenExpired(token)) {
+      window.location.href = '/pages/login-success';
     }
   }, []);
 

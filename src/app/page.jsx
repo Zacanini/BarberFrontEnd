@@ -159,7 +159,7 @@ export default function Page() {
                 </h1>
 
                 <button
-                    onClick={() => window.location.href = '/signin'}
+                    onClick={() => window.location.href = '/pages/signin'}
                     style={{
                         color: '#030303',
                         display: 'flex',
