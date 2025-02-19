@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import useBarberService from '@/hooks/useBarberService';
 import styles from '../../styles/BarberAdd.module.css';
+import { FiCopy } from 'react-icons/fi';
 
 const BarberAdd = ({ userLoged }) => {
     const barberService = useBarberService();
@@ -10,13 +11,13 @@ const BarberAdd = ({ userLoged }) => {
     const [tipoBarber, setTipoBarber] = useState('funcionario');
     const [whatsapp, setWhatsapp] = useState('');
     const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [generatedPassword, setGeneratedPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
-        setSuccessMessage(null);
 
         try {
             const dadosBarber = {
@@ -26,23 +27,33 @@ const BarberAdd = ({ userLoged }) => {
                 tipoBarber,
                 whatsapp,
             };
-            await barberService.criarBarber(dadosBarber);
-            setSuccessMessage('Barbeiro criado com sucesso!');
+            
+            const response = await barberService.criarBarber(dadosBarber);
+            
+            // Fechar popup do formulário
+            setShowPopup(false);
+            
+            // Mostrar modal de sucesso com senha
+            setGeneratedPassword(response.senhaNaoCriptografada);
+            setShowSuccessModal(true);
 
-            // Resetar formulário e fechar popup após 5 segundos
-            setTimeout(() => {
-                setSuccessMessage(null);
-                setShowPopup(false);
-                setNome('');
-                setTipoBarber('funcionario');
-                setWhatsapp('');
-            }, 5000);
+            // Resetar formulário
+            setNome('');
+            setTipoBarber('funcionario');
+            setWhatsapp('');
 
         } catch (error) {
             setError(error.message);
-            setTimeout(() => {
-                setError(null);
-            }, 5000);
+            setTimeout(() => setError(null), 5000);
+        }
+    };
+
+    const copyPassword = async () => {
+        try {
+            await navigator.clipboard.writeText(generatedPassword);
+            alert('Senha copiada para a área de transferência!');
+        } catch (err) {
+            console.error('Erro ao copiar senha:', err);
         }
     };
 
@@ -51,14 +62,14 @@ const BarberAdd = ({ userLoged }) => {
             <button
                 onClick={() => {
                     setShowPopup(true);
-                    setError(null);  // Resetar mensagens ao abrir
-                    setSuccessMessage(null);
+                    setError(null);
                 }}
                 className={styles.openButton}
             >
                 Adicionar Barbeiro
             </button>
 
+            {/* Modal do Formulário */}
             {showPopup && (
                 <div className={styles.popupOverlay}>
                     <div className={styles.popupContent}>
@@ -74,7 +85,6 @@ const BarberAdd = ({ userLoged }) => {
 
                         <div className={styles.formContainer}>
                             {error && <div className={styles.error}>{error}</div>}
-                            {successMessage && <div className={styles.success}>{successMessage}</div>}
 
                             <form onSubmit={handleSubmit} className={styles.form}>
                                 <div className={styles.formGroup}>
@@ -113,6 +123,7 @@ const BarberAdd = ({ userLoged }) => {
                                         onChange={(e) => setWhatsapp(e.target.value)}
                                     />
                                 </div>
+                                
                                 <div className={styles.buttonGroup}>
                                     <button
                                         type="button"
@@ -126,6 +137,57 @@ const BarberAdd = ({ userLoged }) => {
                                     </button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal de Sucesso com Senha */}
+            {showSuccessModal && (
+                <div className={styles.popupOverlay}>
+                    <div className={styles.popupContent}>
+                        <div className={styles.header}>
+                            <h2>Barbeiro Criado com Sucesso!</h2>
+                            <button
+                                onClick={() => setShowSuccessModal(false)}
+                                className={styles.closeButton}
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        <div className={styles.formContainer}>
+                            <div className={styles.passwordAlert}>
+                                <p style={{ fontSize: '1.2rem' , letterSpacing: '1px' , color:'#080402' }}>
+                                    Guarde esta senha de acesso com segurança:
+                                </p>
+                                
+                                <div style={{display:'flex', flexDirection:'row', alignItems: 'center'}}>
+                                    <span style={{ fontSize: '1.4rem' , letterSpacing: '1px' , fontWeight:'800' , color:'#080402',marginRight: '10px', marginTop: '10px' }}>	
+                                        {generatedPassword}
+                                    </span>
+                                    <button 
+                                        onClick={copyPassword}
+                                        style={{display:'flex', flexDirection:'row', fontSize: '1.2rem' , letterSpacing: '1px' ,  color:'#080402',marginTop: '10px', rowGap: '5px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'}}
+                                    >
+                                      <FiCopy />  Copiar 
+                                    </button>
+                                    
+                                </div>
+
+                                <p style={{ fontSize: '1.2rem' , letterSpacing: '1px' , color:'#080402', marginTop: '10px' }}>
+                                    Esta senha não poderá ser recuperada posteriormente
+                                </p>
+                            </div>
+
+                            <div className={styles.buttonGroup}>
+                                <button
+                                    onClick={() => setShowSuccessModal(false)}
+                                    className={styles.button}
+                                >
+                                    Fechar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
