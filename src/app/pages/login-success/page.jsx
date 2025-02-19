@@ -22,7 +22,7 @@ export default function Page() {
 
     // Redireciona para o dashboard após 5 segundos
     const timeoutId = setTimeout(() => {
-      router.push('/pages/identification');
+      router.push('/pages/dashBoard');
     }, );
 
     // Limpa o timeout se o componente for desmontado
