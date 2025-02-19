@@ -9,6 +9,7 @@ import { FiLogOut } from 'react-icons/fi';
 import useUserService from '@/hooks/useUserService';
 import useShopService from '@/hooks/useShopService';
 import BarberAdd from '../components/dashBoard/BarberAdd';
+import NavBar from '../components/NavBar';
 
 const DashBoard = () => {
     const userService = useUserService();
@@ -20,7 +21,7 @@ const DashBoard = () => {
     const router = useRouter();
 
     const getUser = useCallback(async () => {
-        if(user.role === 'shop'){
+        if (user.role === 'shop') {
             try {
                 const data = await shopService.obterShopPorId(user.id);
                 setUserLoged(data);
@@ -28,7 +29,7 @@ const DashBoard = () => {
                 setError(error.message);
             }
         }
-        if(user.role === 'user'){
+        if (user.role === 'user') {
             try {
                 const data = await userService.getUserById(user.id);
                 setUserLoged(data);
@@ -58,6 +59,7 @@ const DashBoard = () => {
 
     return (
         <div className={styles.dashboardContainer}>
+            <NavBar />
             {loading && (
                 <div className={styles.loadingOverlay}>
                     <Loading />
