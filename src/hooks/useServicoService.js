@@ -10,7 +10,8 @@ const useServicoService = () => {
         criarServico: async (dadosServico) => await ServicoService.criarServico(dadosServico, token),
         atualizarServico: async (id, dadosAtualizados) => await ServicoService.atualizarServico(id, dadosAtualizados, token),
         deletarServico: async (id) => await ServicoService.deletarServico(id, token),
-        obterServicoPorId: async (id) => await ServicoService.obterServicoPorId(id, token)
+        obterServicoPorId: async (id) => await ServicoService.obterServicoPorId(id, token),
+        obterServicoPorIdShop: async (idBarber) => await ServicoService.obterServicoPorIdShop(idBarber, token)
     }), [token]);
 }
 

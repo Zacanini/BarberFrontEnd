@@ -51,6 +51,22 @@ const ServicoService = {
     }
   },
 
+  obterServicoPorIdShop: async (idBarber, token) => {
+    try {
+      const response = await api.get(`/servicos/shop/${idBarber}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 404) {
+        throw new Error('Serviço de barbearia não encontrado');
+      }
+      throw new Error(error.response?.data?.mensagem || 'Erro ao obter serviço da barbearia');
+    }
+  },
+
   atualizarServico: async (id, dadosAtualizados, token) => {
     try {
       const response = await api.put(`/servicos/${id}`, dadosAtualizados, {

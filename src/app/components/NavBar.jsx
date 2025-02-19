@@ -43,10 +43,10 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href="/configuracoes" className="nav-link" legacyBehavior>
+                    <Link href="/barber/servicos" className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaCog className="nav-icon" />
-                            <span className="nav-text">Configurações</span>
+                            <span className="nav-text">Serviços</span>
                         </a>
                     </Link>
                 </li>
