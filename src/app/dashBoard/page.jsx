@@ -17,7 +17,7 @@ const DashBoard = () => {
     const [userLoged, setUserLoged] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { token, isAuthReady, user, logout } = useContext(AuthContext);
+    const { token, isAuthReady, user, logout, isTokenExpired } = useContext(AuthContext);
     const router = useRouter();
 
     const getUser = useCallback(async () => {
@@ -41,12 +41,15 @@ const DashBoard = () => {
 
     useEffect(() => {
         if (!isAuthReady) return;
-        if (!token) {
-            router.push('/signin');
-            return;
+      
+        // Verifica se o token existe e não está expirado
+        if (!token || isTokenExpired(token)) {
+          router.push('/signin'); // Redireciona para a página de login
+          return;
         }
+        // Se o token for válido, busca os dados do usuário
         getUser();
-    }, [token, isAuthReady, router, getUser]);
+      }, [token, isAuthReady, router, getUser]);
 
     const handleLogout = () => {
         logout();

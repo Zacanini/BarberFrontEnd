@@ -35,7 +35,7 @@ const BarberShopProfile = () => {
     const [loading, setLoading] = useState(true);
     const [editingField, setEditingField] = useState(null);
     const [formData, setFormData] = useState({});
-    const { token, isAuthReady, user, logout } = useContext(AuthContext);
+    const { token, isAuthReady, user ,isTokenExpired } = useContext(AuthContext);
     const router = useRouter();
 
     useEffect(() => {
@@ -53,8 +53,8 @@ const BarberShopProfile = () => {
         };
 
         if (!isAuthReady) return;
-        if (!token) {
-            router.push('/signin');
+        if (!token || isTokenExpired(token)) {
+            router.push('/signin'); // Redireciona para a página de login
             return;
         }
 

@@ -13,8 +13,13 @@ export const AuthProvider = ({ children }) => {
     const loadUserFromToken = () => {
       const authToken = AuthService.checkAuthToken();
       if (authToken) {
+        if (isTokenExpired(authToken)) {
+          console.log("Token expirado. Fazendo logout...");
+          AuthService.logout(); // Faz logout se o token expirou
+          return;
+        }
         try {
-          const decodedToken = jwtDecode(authToken); // Use jwtDecode aqui
+          const decodedToken = jwtDecode(authToken);
           setUser(decodedToken);
           setToken(authToken);
         } catch (error) {
@@ -24,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       }
       setIsAuthReady(true);
     };
-
+  
     loadUserFromToken();
   }, []);
 
@@ -44,12 +49,25 @@ export const AuthProvider = ({ children }) => {
     AuthService.logout();
   };
 
+  // Função para verificar se o token expirou
+  const isTokenExpired = (token) => {
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Tempo atual em segundos
+      return decodedToken.exp < currentTime; // Token expirou se `exp` < tempo atual
+    } catch (error) {
+      console.error("Erro ao decodificar o token:", error);
+      return true; // Considera o token inválido em caso de erro
+    }
+  };
+
   const value = {
     user,
     token,
     login,
     logout,
-    isAuthReady
+    isAuthReady,
+    isTokenExpired
   };
 
   return (

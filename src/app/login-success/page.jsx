@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Loading from '../components/Loading';
 
 export default function Page() {
-  const { isAuthReady, token } = useContext(AuthContext);
+  const { isAuthReady, token ,isTokenExpired} = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function Page() {
       return; // Aguarda a inicialização da autenticação
     }
 
-    if (!token) {
-      router.push('/signin');
+    if (!token || isTokenExpired(token)) {
+      router.push('/signin'); // Redireciona para a página de login
       return;
     }
 
