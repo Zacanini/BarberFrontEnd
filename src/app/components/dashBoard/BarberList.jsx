@@ -1,9 +1,9 @@
 "use client";
 import React from 'react';
 import styles from '@/app/styles/ServicosPage.module.css';
-import { FiTrash } from 'react-icons/fi';
+import { FiTrash, FiEdit } from 'react-icons/fi';
 
-const BarberList = ({ barbeiros, onDelete }) => {
+const BarberList = ({ barbeiros, onDelete, onEdit }) => { // Adicione onEdit como prop
   return (
     <div className={styles.servicosGrid}>
       {barbeiros.map((barbeiro) => (
@@ -14,6 +14,12 @@ const BarberList = ({ barbeiros, onDelete }) => {
             {barbeiro.tipoBarber && <p>Tipo: {barbeiro.tipoBarber}</p>}
           </div>
           <div className={styles.servicoActions}>
+            <button 
+              className={styles.editButton} 
+              onClick={() => onEdit(barbeiro)}
+            >
+              <FiEdit />
+            </button>
             <button 
               className={styles.deleteButton} 
               onClick={() => onDelete(barbeiro.id)}
