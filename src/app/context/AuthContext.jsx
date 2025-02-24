@@ -5,8 +5,8 @@ import { jwtDecode } from 'jwt-decode'; // Import corrigido
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState({});
   const [isAuthReady, setIsAuthReady] = useState(false);
 
   useEffect(() => {

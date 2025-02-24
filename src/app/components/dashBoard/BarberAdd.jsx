@@ -5,7 +5,7 @@ import useBarberService from '@/hooks/useBarberService';
 import styles from '../../styles/BarberAdd.module.css';
 import { FiCopy } from 'react-icons/fi';
 
-const BarberAdd = ({ userLoged }) => {
+const BarberAdd = ({ userLoged , onBarberCriado  }) => {
     const barberService = useBarberService();
     const [nome, setNome] = useState('');
     const [tipoBarber, setTipoBarber] = useState('funcionario');
@@ -29,6 +29,7 @@ const BarberAdd = ({ userLoged }) => {
             };
             
             const response = await barberService.criarBarber(dadosBarber);
+            onBarberCriado(response);
             
             // Fechar popup do formulário
             setShowPopup(false);

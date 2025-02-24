@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { AuthContext } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -8,13 +7,17 @@ import styles from '../../styles/DashBoard.module.css';
 import { FiLogOut } from 'react-icons/fi';
 import useUserService from '@/hooks/useUserService';
 import useShopService from '@/hooks/useShopService';
+import useBarberService from '@/hooks/useBarberService'; // Adicionei esta importação
 import BarberAdd from '../../components/dashBoard/BarberAdd';
+import BarberList from '../../components/dashBoard/BarberList'; // Importe o componente BarberList
 import NavBar from '../../components/NavBar';
 
 const DashBoard = () => {
     const userService = useUserService();
     const shopService = useShopService();
+    const barberService = useBarberService(); // Inicialize o serviço
     const [userLoged, setUserLoged] = useState({});
+    const [barbeiros, setBarbeiros] = useState([]); // Estado para os barbeiros
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const { token, isAuthReady, user, logout, isTokenExpired } = useContext(AuthContext);
@@ -38,18 +41,54 @@ const DashBoard = () => {
             }
         }
     }, [user, shopService, userService]);
-
-    useEffect(() => {
-        if (!isAuthReady) return;
-      
-        // Verifica se o token existe e não está expirado
-        if (!token || isTokenExpired(token)) {
-          router.push('/signin'); // Redireciona para a página de login
-          return;
+    // Função para carregar barbeiros
+    const fetchBarbeiros = useCallback(async () => {
+        // Adicione verificação de user existe
+        if (user && userLoged.id && user.role === 'shop') {
+            try {
+                const data = await barberService.obterBarberPorIdShop(userLoged.id);
+                setBarbeiros(data);
+            } catch (error) {
+                setError(error.message);
+            }
         }
-        // Se o token for válido, busca os dados do usuário
-        getUser();
-      }, [token, isAuthReady, router, getUser]);
+    }, [userLoged.id, barberService, user]); // Mude para depender do user completo
+    // Atualizar lista quando novo barbeiro for adicionado
+    const handleNewBarber = async (novoBarber) => {
+        try {
+            setLoading(true);
+            await fetchBarbeiros(); // Força a recarga da lista
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+    // Função para deletar barbeiro
+    const handleDeleteBarber = async (id) => {
+        try {
+            await barberService.deletarBarber(id);
+            setBarbeiros(prev => prev.filter(b => b.id !== id));
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+    useEffect(() => {
+        if (!isAuthReady || !user) return; // Adicione verificação de user
+        
+        if (!token || isTokenExpired(token)) {
+            router.push('/signin');
+            return;
+        }
+        
+        const loadData = async () => {
+            await getUser();
+            if (user.role === 'shop') {
+                await fetchBarbeiros();
+            }
+        };
+        loadData();
+    }, [token, isAuthReady, router, getUser, fetchBarbeiros, user]); // Mantenha user como dependência
 
     const handleLogout = () => {
         logout();
@@ -84,7 +123,16 @@ const DashBoard = () => {
                 </div>
             </div>
 
-            <BarberAdd userLoged={userLoged} />
+            <BarberAdd userLoged={userLoged} onBarberCriado={handleNewBarber} />
+            
+            {/* Seção de Barbeiros */}
+            <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>Barbeiros Cadastrados</h2>
+                <BarberList 
+                    barbeiros={barbeiros} 
+                    onDelete={handleDeleteBarber} 
+                />
+            </div>
         </div>
     );
 };

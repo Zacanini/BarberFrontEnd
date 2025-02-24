@@ -9,6 +9,7 @@ const useBarberService = () => {
         criarBarber: async (dadosBarber) => await BarberService.criarBarber(dadosBarber, token),
         listarBarbers: async () => await BarberService.listarBarbers(token),
         obterBarberPorId: async (id) => await BarberService.obterBarberPorId(id, token),
+        obterBarberPorIdShop: async (idShop) => await BarberService.obterBarberPorIdShop(idShop, token),
         atualizarBarber: async (id, dadosAtualizados) => await BarberService.atualizarBarber(id, dadosAtualizados, token),
         deletarBarber: async (id) => await BarberService.deletarBarber(id, token),
     }), [token]); // Memoize com dependência do token

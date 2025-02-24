@@ -47,6 +47,18 @@ const BarberService = {
       throw new Error(error.response?.data?.mensagem || 'Erro ao obter barbeiro');
     }
   },
+  obterBarberPorIdShop: async (idShop , token) => {
+    try {
+      const response = await api.get(`barbers/shop/${idShop}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.mensagem || 'Erro ao obter barbeiro');
+    }
+  },
 
   atualizarBarber: async (id, dadosAtualizados , token) => {
     try {

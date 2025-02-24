@@ -1,0 +1,165 @@
+.container {
+    padding: 2rem;
+    background: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  .title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+  }
+  
+  .barbeirosGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    max-width: 1200px; /* Define uma largura máxima para o grid */
+    margin: 0 auto; /* Centraliza o grid horizontalmente */
+  }
+  
+  .barbeiroCard {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+  }
+  
+  .barbeiroCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .calendarIcon {
+    font-size: 2rem;
+    color: #ff7c20;
+    margin-bottom: 1rem;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: white;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 12px;
+    padding: 2rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+  }
+  
+  .weekNavigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .weekNavigation button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #2c3e50;
+  }
+  
+  .calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+  }
+  
+  .dia {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 300px;
+  }
+  
+  .hoje {
+    border: 2px solid #ff7c20;
+  }
+  
+  .cabecalhoDia {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .cabecalhoDia span {
+    display: block;
+    color: #6c757d;
+    text-transform: capitalize;
+  }
+  
+  .cabecalhoDia strong {
+    font-size: 1.2rem;
+    color: #2c3e50;
+  }
+  
+  .agendamentos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .agendamento {
+    background: white;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .horario {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .servico {
+    color:black;
+    font-size: 0.9rem;
+  }
+  
+  .valor {
+    color: #27ae60;
+    font-weight: 600;
+  }
+  
+  .pagamento {
+    background: #e9ecef;
+    color: #2c3e50;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+  }

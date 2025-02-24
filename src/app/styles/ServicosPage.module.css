@@ -194,3 +194,11 @@
 .modal .form input {
     color: #333; /* ou qualquer outra cor que você preferir */
 }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
