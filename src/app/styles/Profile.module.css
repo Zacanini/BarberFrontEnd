@@ -24,6 +24,9 @@
 }
 
 .profileImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     bottom: -50px;
     left: 50%;
@@ -37,7 +40,7 @@
     border: 4px solid white;
     object-fit: cover;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin-bottom: 60px;
+    margin-bottom: 70px;
 }
 
 .editButton {
@@ -229,4 +232,63 @@
 }
 .modalHeader h3 {
     color: #333; /* ou qualquer outra cor escura de sua preferência */
+}
+
+.subscriptionInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    padding: 6px 0;
+    min-height: 32px; /* Garante altura mínima mesmo sem conteúdo */
+}
+
+.smallIcon {
+    color: #e74c3c;
+    margin-right: 0.3rem;
+}
+
+/* Cores para status e planos */
+.active {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.inactive {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.trial {
+    color: #f1c40f;
+    font-weight: 600;
+}
+
+.basic {
+    color: #3498db;
+}
+
+.premium {
+    color: #9b59b6;
+}
+
+.enterprise {
+    color: #2ecc71;
+}
+
+.trialInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff3cd;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    color: #856404;
 }

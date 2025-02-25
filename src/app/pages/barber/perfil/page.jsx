@@ -5,7 +5,7 @@ import { AuthContext } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Loading from '../../../components/Loading';
 import styles from '../../../styles/Profile.module.css';
-import { FiEdit, FiClock, FiMapPin, FiPhone, FiX } from 'react-icons/fi';
+import { FiEdit, FiClock, FiMapPin, FiPhone, FiX, FiPackage, FiDollarSign, FiCalendar } from 'react-icons/fi';
 import useShopService from '@/hooks/useShopService';
 import NavBar from '../../../components/NavBar';
 import ReactDOM from 'react-dom';
@@ -35,7 +35,7 @@ const BarberShopProfile = () => {
     const [loading, setLoading] = useState(true);
     const [editingField, setEditingField] = useState(null);
     const [formData, setFormData] = useState({});
-    const { token, isAuthReady, user ,isTokenExpired } = useContext(AuthContext);
+    const { token, isAuthReady, user, isTokenExpired } = useContext(AuthContext);
     const router = useRouter();
 
     useEffect(() => {
@@ -43,6 +43,7 @@ const BarberShopProfile = () => {
             if (user && user.role === 'shop') {
                 try {
                     const data = await shopService.obterShopPorId(user.id);
+                    console.log('Dados recebidos:', data)
                     setShopData(data);
                 } catch (error) {
                     console.error('Erro ao carregar dados da barbearia:', error);
@@ -98,6 +99,21 @@ const BarberShopProfile = () => {
         }
     };
 
+    const formatarData = (dataString) => {
+        if (!dataString) return "sem plano"; // Adicione esta linha
+
+        try {
+            return new Date(dataString).toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        } catch (error) {
+            console.error('Erro ao formatar data:', error);
+            return 'Data inválida';
+        }
+    };
+
     if (!isAuthReady || loading) {
         return <Loading />;
     }
@@ -127,6 +143,7 @@ const BarberShopProfile = () => {
                         </form>
                     </Modal>
                 )}
+
 
                 {editingField === 'informacoes' && (
                     <Modal title="Editar Informações" onClose={() => setEditingField(null)}>
@@ -225,10 +242,11 @@ const BarberShopProfile = () => {
                                 className={styles.profileImage}
                             />
                             <button
-                                className={styles.editButton}
+                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '5px', borderRadius: '50%' }}
                                 onClick={() => handleEditClick('imagem')}
+                                aria-label="Editar imagem"
                             >
-                                <FiEdit size={18} />
+                                <FiEdit size={18} color="#333" />
                             </button>
                         </div>
                     </div>
@@ -290,9 +308,8 @@ const BarberShopProfile = () => {
                         </div>
                     </div>
                 </div>
-
                 {/* Descrição */}
-                <div className={styles.descriptionCard}>
+                <div style={{ marginBottom: '20px' }} className={styles.descriptionCard}>
                     <button
                         className={styles.cardEditButton}
                         onClick={() => handleEditClick('informacoes')}
@@ -304,6 +321,48 @@ const BarberShopProfile = () => {
                         {shopData.informacoes || 'Nenhuma descrição fornecida.'}
                     </p>
                 </div>
+                {/* Novo Card de Assinatura (Dentro do grid) */}
+                {shopData.subscription_status && (
+                    <div className={styles.infoCard}>
+                        <h2 className={styles.sectionTitle}>
+                            <FiPackage className={styles.icon} /> Assinatura
+                        </h2>
+                        <div className={styles.subscriptionInfo}>
+                            <div className={styles.infoItem}>
+                                <span style={{ color: 'black' }}>Status:</span>
+                                <span className={`${styles.status} ${styles[shopData.subscription_status] || styles.inactive}`}>
+                                    {shopData.subscription_status || "não cadastrado"}
+                                </span>
+                            </div>
+
+                            <div className={styles.infoItem}>
+                                <FiCalendar className={styles.smallIcon} />
+                                <span style={{ color: 'black' }}>Início:</span>
+                                <span style={{ color: '#808080' }}>
+                                    {shopData.subscription_start_date ? formatarData(shopData.subscription_start_date) : "sem plano"}
+                                </span>
+                            </div>
+
+                            <div className={styles.infoItem}>
+                                <FiCalendar className={styles.smallIcon} />
+                                <span style={{ color: 'black' }}>Vencimento:</span>
+                                <span style={{ color: '#808080' }}>
+                                    {shopData.subscription_end_date ? formatarData(shopData.subscription_end_date) : "sem plano"}
+                                </span>
+                            </div>
+
+                            {shopData.trial_end_date && (
+                                <div className={styles.trialInfo}>
+                                    <FiDollarSign className={styles.smallIcon} />
+                                    <span>Trial até:</span>
+                                    <span>
+                                        {new Date(shopData.trial_end_date).toLocaleDateString('pt-BR')}
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FaHome, FaUser, FaCalendarAlt, FaBars , FaCut } from 'react-icons/fa';
+import { FaHome, FaUser, FaCalendarAlt, FaBars , FaCut ,FaChartLine  } from 'react-icons/fa';
 import '../styles/NavBar.css';
 
 const NavBar = () => {
@@ -47,6 +47,15 @@ const NavBar = () => {
                         <a className="nav-link">
                             <FaCut className="nav-icon" /> {/* Use o ícone FaCut */}
                             <span className="nav-text">Serviços</span>
+                        </a>
+                    </Link>
+                </li>
+                {/* Novo item para métricas */}
+                <li className="nav-item">
+                    <Link href="/pages/barber/metricas" className="nav-link" legacyBehavior>
+                        <a className="nav-link">
+                            <FaChartLine className="nav-icon" />
+                            <span className="nav-text">Métricas</span>
                         </a>
                     </Link>
                 </li>
