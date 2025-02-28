@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       }
       setIsAuthReady(true);
     };
-  
+
     loadUserFromToken();
   }, []);
 
@@ -52,12 +52,17 @@ export const AuthProvider = ({ children }) => {
   // Função para verificar se o token expirou
   const isTokenExpired = (token) => {
     try {
+      // Verificação simplificada e correta para JavaScript
+      if (!token || typeof token !== 'string' || token.trim() === '') {
+        return true; // Token inválido ou ausente
+      }
+
       const decodedToken = jwtDecode(token);
       const currentTime = Date.now() / 1000; // Tempo atual em segundos
       return decodedToken.exp < currentTime; // Token expirou se `exp` < tempo atual
     } catch (error) {
-      console.error("Erro ao decodificar o token:", error);
-      return true; // Considera o token inválido em caso de erro
+      console.error("Erro ao verificar expiração do token:", error);
+      return true; // Em caso de erro, consideramos como expirado
     }
   };
 

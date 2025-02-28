@@ -1,0 +1,327 @@
+.metricasContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding-bottom: 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .titulo h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+  
+  .titulo p {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .controles {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .seletorMes {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff;
+    padding: 0.2rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .iconLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #666;
+  }
+  
+  .seletorMes select {
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .tipoVisao {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .tipoVisao button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+  }
+  
+  .tipoVisao button.ativo {
+    background: #ff7c20;
+    color: white;
+    border-color: #ff7c20;
+  }
+  
+  .tipoVisao button:hover:not(.ativo) {
+    background: #f0f0f0;
+  }
+  
+  .metricas {
+    padding: 0 2rem;
+  }
+  
+  .metricasGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .metricaCard {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .metricaCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cardTitulo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .cardTitulo h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .cardIcon {
+    color: #ff7c20;
+    font-size: 1.2rem;
+  }
+  
+  .cardContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+  }
+  
+  .variacaoValor {
+    text-align: center;
+  }
+  
+  .valor {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .positivo {
+    color: #27ae60;
+  }
+  
+  .negativo {
+    color: #e74c3c;
+  }
+  
+  .descricao {
+    display: block;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .servicoDestaque {
+    text-align: center;
+  }
+  
+  .servicoNome {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .graficosGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .graficoCard {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .graficoCard:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .graficoContainer {
+    height: 350px;
+    position: relative;
+  }
+  
+  .fullWidth {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+  }
+  
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+  
+  .erro {
+    text-align: center;
+    color: #e74c3c;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    margin: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .semDados {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #666;
+    text-align: center;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .controles {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .graficosGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .tipoVisao {
+      width: 100%;
+    }
+  
+    .tipoVisao button {
+      flex: 1;
+      text-align: center;
+    }
+  
+    .seletorMes {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  .secaoTitulo {
+    margin: 2rem 0 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+  }
+  
+  .secaoTitulo h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .seletorBarbeiro {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff;
+    padding: 0.2rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .seletorBarbeiro select {
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    min-width: 150px;
+  }
+  
+  .seletorBarbeiro select:disabled {
+    color: #999;
+    cursor: not-allowed;
+  }
+  .avisoApi {
+    background-color: rgba(255, 193, 7, 0.2);
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .avisoApi p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: #856404;
+  }
+  
+  .avisoIcon {
+    color: #ffc107;
+    font-size: 1.2rem;
+  }
