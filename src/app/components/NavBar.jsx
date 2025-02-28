@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from 'next/link';
-import { FaHome, FaUser, FaCalendarAlt, FaBars , FaCut ,FaChartLine  } from 'react-icons/fa';
+import { FaHome, FaUser, FaCalendarAlt, FaBars, FaCut, FaChartLine, FaHistory } from 'react-icons/fa';
+import { AuthContext } from '@/app/context/AuthContext';
 import '../styles/NavBar.css';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { user } = useContext(AuthContext);
+    const isShop = user?.role === 'shop';
+    const isBarber = user?.role === 'barber';
+    const isUser = user?.role === 'user';
 
     const toggleNavBar = () => {
         setIsOpen(!isOpen);
@@ -27,7 +32,7 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href="/pages/barber/perfil" className="nav-link" legacyBehavior>
+                    <Link href={isUser ? "/pages/user/perfil" : "/pages/barber/perfil"} className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaUser className="nav-icon" />
                             <span className="nav-text">Perfil</span>
@@ -35,30 +40,45 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href="/pages/agendamentos" className="nav-link" legacyBehavior>
+                    <Link href={isUser ? "/pages/user/agendamentos" : "/pages/agendamentos"} className="nav-link" legacyBehavior>
                         <a className="nav-link">
                             <FaCalendarAlt className="nav-icon" />
                             <span className="nav-text">Agendamentos</span>
                         </a>
                     </Link>
                 </li>
-                <li className="nav-item">
-                    <Link href="/pages/barber/servicos" className="nav-link" legacyBehavior>
-                        <a className="nav-link">
-                            <FaCut className="nav-icon" /> {/* Use o ícone FaCut */}
-                            <span className="nav-text">Serviços</span>
-                        </a>
-                    </Link>
-                </li>
-                {/* Novo item para métricas */}
-                <li className="nav-item">
-                    <Link href="/pages/barber/metricas" className="nav-link" legacyBehavior>
-                        <a className="nav-link">
-                            <FaChartLine className="nav-icon" />
-                            <span className="nav-text">Métricas</span>
-                        </a>
-                    </Link>
-                </li>
+                
+                {(isShop || isBarber) && (
+                    <>
+                        <li className="nav-item">
+                            <Link href="/pages/barber/servicos" className="nav-link" legacyBehavior>
+                                <a className="nav-link">
+                                    <FaCut className="nav-icon" />
+                                    <span className="nav-text">Serviços</span>
+                                </a>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link href="/pages/barber/metricas" className="nav-link" legacyBehavior>
+                                <a className="nav-link">
+                                    <FaChartLine className="nav-icon" />
+                                    <span className="nav-text">Métricas</span>
+                                </a>
+                            </Link>
+                        </li>
+                    </>
+                )}
+                
+                {isUser && (
+                    <li className="nav-item">
+                        <Link href="/pages/user/historico" className="nav-link" legacyBehavior>
+                            <a className="nav-link">
+                                <FaHistory className="nav-icon" />
+                                <span className="nav-text">Histórico</span>
+                            </a>
+                        </Link>
+                    </li>
+                )}
             </ul>
         </div>
     );

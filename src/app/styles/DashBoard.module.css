@@ -287,3 +287,94 @@
   border-bottom: 2px solid #ff7c20;
   padding-bottom: 0.5rem;
 }
+
+/* Adicionando ao final do arquivo existente */
+
+/* Estilos para o Dashboard do Usuário */
+.userDashboardContainer {
+  width: 87%;
+  margin: 0 auto;
+}
+
+.proximoAgendamentoCard {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.agendamentoInfo h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.agendamentoInfo p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.semAgendamento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  color: #999;
+}
+
+.semAgendamento svg {
+  margin-bottom: 1rem;
+  color: #daa520;
+}
+
+.historicoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.historicoCard {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.historicoCard:hover {
+  transform: translateY(-5px);
+}
+
+.historicoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.historicoHeader h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.historicoHeader span {
+  color: #ff7c20;
+  font-weight: 500;
+}
+
+.historicoDetalhes p {
+  margin: 0.5rem 0;
+}
+
+.semHistorico {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  color: #999;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
