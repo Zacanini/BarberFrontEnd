@@ -325,217 +325,112 @@ const MetricasPage = () => {
     <div className={styles.metricasContainer}>
       <NavBar />
       
-      <div className={styles.header}>
-        <div className={styles.titulo}>
-          <h1>Métricas e Analytics</h1>
-          <p>Visualize o desempenho do seu negócio em números</p>
-        </div>
-        
-        <div className={styles.controles}>
-          {/* Seletor de Mês */}
-          <div className={styles.seletorMes}>
-            <div className={styles.iconLabel}>
-              <FiCalendar />
-              <span>Período:</span>
-            </div>
-            <select 
-              value={mesSelecionado} 
-              onChange={(e) => setMesSelecionado(Number(e.target.value))}
-            >
-              {Array.from({ length: 12 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {getNomeMes(i + 1)}
-                </option>
-              ))}
-            </select>
+      <div className={styles.contentWrapper}>
+        <div className={styles.header}>
+          <div className={styles.titulo}>
+            <h1>Métricas e Analytics</h1>
+            <p>Visualize o desempenho do seu negócio em números</p>
           </div>
           
-          {/* Seletor de Barbeiro */}
-          <div className={styles.seletorBarbeiro}>
-            <div className={styles.iconLabel}>
-              <FiScissors />
-              <span>Barbeiro:</span>
-            </div>
-            <select 
-              value={barbeiroSelecionado || ''} 
-              onChange={(e) => setBarbeiroSelecionado(e.target.value)}
-              disabled={barbeirosLoading || barbeiros.length === 0}
-            >
-              {barbeirosLoading ? (
-                <option>Carregando...</option>
-              ) : barbeiros.length === 0 ? (
-                <option>Sem barbeiros</option>
-              ) : (
-                barbeiros.map(barbeiro => (
-                  <option key={barbeiro.id} value={barbeiro.id}>
-                    {barbeiro.nome}
+          <div className={styles.controles}>
+            {/* Seletor de Mês */}
+            <div className={styles.seletorMes}>
+              <div className={styles.iconLabel}>
+                <FiCalendar />
+                <span>Período:</span>
+              </div>
+              <select 
+                value={mesSelecionado} 
+                onChange={(e) => setMesSelecionado(Number(e.target.value))}
+              >
+                {Array.from({ length: 12 }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {getNomeMes(i + 1)}
                   </option>
-                ))
-              )}
-            </select>
+                ))}
+              </select>
+            </div>
+            
+            {/* Seletor de Barbeiro */}
+            <div className={styles.seletorBarbeiro}>
+              <div className={styles.iconLabel}>
+                <FiScissors />
+                <span>Barbeiro:</span>
+              </div>
+              <select 
+                value={barbeiroSelecionado || ''} 
+                onChange={(e) => setBarbeiroSelecionado(e.target.value)}
+                disabled={barbeirosLoading || barbeiros.length === 0}
+              >
+                {barbeirosLoading ? (
+                  <option>Carregando...</option>
+                ) : barbeiros.length === 0 ? (
+                  <option>Sem barbeiros</option>
+                ) : (
+                  barbeiros.map(barbeiro => (
+                    <option key={barbeiro.id} value={barbeiro.id}>
+                      {barbeiro.nome}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
-      {loading ? (
-        <div className={styles.loadingContainer}>
-          <Loading />
-        </div>
-      ) : error ? (
-        <div className={styles.erro}>
-          <p>{error}</p>
-        </div>
-      ) : (
-        <div className={styles.metricas}>
-          {/* Seção: Visão Geral da Barbearia */}
-          <div className={styles.secaoTitulo}>
-            <h2>Visão Geral da Barbearia</h2>
+        {loading ? (
+          <div className={styles.loadingContainer}>
+            <Loading />
           </div>
-          
-          {/* Grid de Cartões de Métricas da Barbearia */}
-          <div className={styles.metricasGrid}>
-            {/* Cartão de Serviço Mais Popular da Barbearia */}
-            <div className={styles.metricaCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitulo}>
-                  <FiAward className={styles.cardIcon} />
-                  <h2>Serviço Mais Popular</h2>
-                </div>
-              </div>
-              <div className={styles.cardContent}>
-                <div className={styles.servicoDestaque}>
-                  <span className={styles.servicoNome}>
-                    {servicoMaisVendido || "Sem dados"}
-                  </span>
-                  <span className={styles.descricao}>
-                    mais solicitado na barbearia em {getNomeMes(mesSelecionado)}
-                  </span>
-                </div>
-              </div>
+        ) : error ? (
+          <div className={styles.erro}>
+            <p>{error}</p>
+          </div>
+        ) : (
+          <div className={styles.metricas}>
+            {/* Seção: Visão Geral da Barbearia */}
+            <div className={styles.secaoTitulo}>
+              <h2>Visão Geral da Barbearia</h2>
             </div>
             
-            {/* Outro card para métricas da barbearia se necessário */}
-          </div>
-
-          {/* Gráficos da Barbearia */}
-          <div className={styles.graficosGrid}>
-            {/* Gráfico de Agendamentos por Dia da Semana */}
-            <div className={styles.graficoCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitulo}>
-                  <FiBarChart2 className={styles.cardIcon} />
-                  <h2>Agendamentos por Dia da Semana</h2>
-                </div>
-              </div>
-              <div className={styles.graficoContainer}>
-                {agendasPorDia.labels?.length > 0 ? (
-                  <Bar data={agendasPorDia} options={opcoes} />
-                ) : (
-                  <div className={styles.semDados}>
-                    <p>Sem dados para exibir neste período</p>
-                  </div>
-                )}
-              </div>
-            </div>
-            
-            {/* Gráfico de Agendamentos por Serviço */}
-            <div className={styles.graficoCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitulo}>
-                  <FiPieChart className={styles.cardIcon} />
-                  <h2>Distribuição por Serviço</h2>
-                </div>
-              </div>
-              <div className={styles.graficoContainer}>
-                {agendasPorServico.labels?.length > 0 ? (
-                  <Doughnut data={agendasPorServico} options={opcoes} />
-                ) : (
-                  <div className={styles.semDados}>
-                    <p>Sem dados para exibir neste período</p>
-                  </div>
-                )}
-              </div>
-            </div>
-            
-            {/* Gráfico de Barbeiros */}
-            <div className={`${styles.graficoCard} ${styles.fullWidth}`}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitulo}>
-                  <FiUsers className={styles.cardIcon} />
-                  <h2>Desempenho dos Barbeiros</h2>
-                </div>
-              </div>
-              <div className={styles.graficoContainer}>
-                {Object.keys(servicosPorBarbeiro).length > 0 ? (
-                  <Bar data={dadosBarbeiros} options={opcoes} />
-                ) : (
-                  <div className={styles.semDados}>
-                    <p>Sem dados para exibir neste período</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          
-          {/* Seção: Métricas do Barbeiro Selecionado */}
-          {barbeiroSelecionado && (
-            <>
-              <div className={styles.secaoTitulo}>
-                <h2>Métricas de {getNomeBarbeiro(barbeiroSelecionado)}</h2>
-              </div>
-              
-              {/* Grid de Cartões de Métricas do Barbeiro */}
-              <div className={styles.metricasGrid}>
-                {/* Cartão de Variação de Agendamentos */}
-                <div className={styles.metricaCard}>
-                  <div className={styles.cardHeader}>
-                    <div className={styles.cardTitulo}>
-                      <FiTrendingUp className={styles.cardIcon} />
-                      <h2>Variação de Agendamentos</h2>
-                    </div>
-                  </div>
-                  <div className={styles.cardContent}>
-                    <div className={styles.variacaoValor}>
-                      <span className={`${styles.valor} ${variacaoAgendasBarbeiroSelecionado >= 0 ? styles.positivo : styles.negativo}`}>
-                        {variacaoAgendasBarbeiroSelecionado >= 0 ? '+' : ''}{Number(variacaoAgendasBarbeiroSelecionado).toFixed(1)}%
-                      </span>
-                      <span className={styles.descricao}>comparado ao mês anterior</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Cartão de Serviço Mais Popular do Barbeiro */}
-                <div className={styles.metricaCard}>
-                  <div className={styles.cardHeader}>
-                    <div className={styles.cardTitulo}>
-                      <FiAward className={styles.cardIcon} />
-                      <h2>Serviço Mais Realizado</h2>
-                    </div>
-                  </div>
-                  <div className={styles.cardContent}>
-                    <div className={styles.servicoDestaque}>
-                      <span className={styles.servicoNome}>
-                        {servicoMaisEfetuadoBarbeiroSelecionado || "Sem dados"}
-                      </span>
-                      <span className={styles.descricao}>
-                        mais realizado em {getNomeMes(mesSelecionado)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Gráfico específico do barbeiro selecionado */}
-              <div className={`${styles.graficoCard} ${styles.fullWidth}`}>
+            {/* Grid de Cartões de Métricas da Barbearia */}
+            <div className={styles.metricasGrid}>
+              {/* Cartão de Serviço Mais Popular da Barbearia */}
+              <div className={styles.metricaCard}>
                 <div className={styles.cardHeader}>
                   <div className={styles.cardTitulo}>
-                    <FiPieChart className={styles.cardIcon} />
-                    <h2>Serviços Realizados por {getNomeBarbeiro(barbeiroSelecionado)}</h2>
+                    <FiAward className={styles.cardIcon} />
+                    <h2>Serviço Mais Popular</h2>
+                  </div>
+                </div>
+                <div className={styles.cardContent}>
+                  <div className={styles.servicoDestaque}>
+                    <span className={styles.servicoNome}>
+                      {servicoMaisVendido || "Sem dados"}
+                    </span>
+                    <span className={styles.descricao}>
+                      mais solicitado na barbearia em {getNomeMes(mesSelecionado)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Outro card para métricas da barbearia se necessário */}
+            </div>
+
+            {/* Gráficos da Barbearia */}
+            <div className={styles.graficosGrid}>
+              {/* Gráfico de Agendamentos por Dia da Semana */}
+              <div className={styles.graficoCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardTitulo}>
+                    <FiBarChart2 className={styles.cardIcon} />
+                    <h2>Agendamentos por Dia da Semana</h2>
                   </div>
                 </div>
                 <div className={styles.graficoContainer}>
-                  {agendasBarbeiroSelecionado && agendasBarbeiroSelecionado.length > 0 ? (
-                    <Pie data={processarAgendasBarbeiroSelecionado()} options={opcoes} />
+                  {agendasPorDia.labels?.length > 0 ? (
+                    <Bar data={agendasPorDia} options={opcoes} />
                   ) : (
                     <div className={styles.semDados}>
                       <p>Sem dados para exibir neste período</p>
@@ -543,10 +438,117 @@ const MetricasPage = () => {
                   )}
                 </div>
               </div>
-            </>
-          )}
-        </div>
-      )}
+              
+              {/* Gráfico de Agendamentos por Serviço */}
+              <div className={styles.graficoCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardTitulo}>
+                    <FiPieChart className={styles.cardIcon} />
+                    <h2>Distribuição por Serviço</h2>
+                  </div>
+                </div>
+                <div className={styles.graficoContainer}>
+                  {agendasPorServico.labels?.length > 0 ? (
+                    <Doughnut data={agendasPorServico} options={opcoes} />
+                  ) : (
+                    <div className={styles.semDados}>
+                      <p>Sem dados para exibir neste período</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Gráfico de Barbeiros */}
+              <div className={`${styles.graficoCard} ${styles.fullWidth}`}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardTitulo}>
+                    <FiUsers className={styles.cardIcon} />
+                    <h2>Desempenho dos Barbeiros</h2>
+                  </div>
+                </div>
+                <div className={styles.graficoContainer}>
+                  {Object.keys(servicosPorBarbeiro).length > 0 ? (
+                    <Bar data={dadosBarbeiros} options={opcoes} />
+                  ) : (
+                    <div className={styles.semDados}>
+                      <p>Sem dados para exibir neste período</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Seção: Métricas do Barbeiro Selecionado */}
+            {barbeiroSelecionado && (
+              <>
+                <div className={styles.secaoTitulo}>
+                  <h2>Métricas de {getNomeBarbeiro(barbeiroSelecionado)}</h2>
+                </div>
+                
+                {/* Grid de Cartões de Métricas do Barbeiro */}
+                <div className={styles.metricasGrid}>
+                  {/* Cartão de Variação de Agendamentos */}
+                  <div className={styles.metricaCard}>
+                    <div className={styles.cardHeader}>
+                      <div className={styles.cardTitulo}>
+                        <FiTrendingUp className={styles.cardIcon} />
+                        <h2>Variação de Agendamentos</h2>
+                      </div>
+                    </div>
+                    <div className={styles.cardContent}>
+                      <div className={styles.variacaoValor}>
+                        <span className={`${styles.valor} ${variacaoAgendasBarbeiroSelecionado >= 0 ? styles.positivo : styles.negativo}`}>
+                          {variacaoAgendasBarbeiroSelecionado >= 0 ? '+' : ''}{Number(variacaoAgendasBarbeiroSelecionado).toFixed(1)}%
+                        </span>
+                        <span className={styles.descricao}>comparado ao mês anterior</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Cartão de Serviço Mais Popular do Barbeiro */}
+                  <div className={styles.metricaCard}>
+                    <div className={styles.cardHeader}>
+                      <div className={styles.cardTitulo}>
+                        <FiAward className={styles.cardIcon} />
+                        <h2>Serviço Mais Realizado</h2>
+                      </div>
+                    </div>
+                    <div className={styles.cardContent}>
+                      <div className={styles.servicoDestaque}>
+                        <span className={styles.servicoNome}>
+                          {servicoMaisEfetuadoBarbeiroSelecionado || "Sem dados"}
+                        </span>
+                        <span className={styles.descricao}>
+                          mais realizado em {getNomeMes(mesSelecionado)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Gráfico específico do barbeiro selecionado */}
+                <div className={`${styles.graficoCard} ${styles.fullWidth}`}>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.cardTitulo}>
+                      <FiPieChart className={styles.cardIcon} />
+                      <h2>Serviços Realizados por {getNomeBarbeiro(barbeiroSelecionado)}</h2>
+                    </div>
+                  </div>
+                  <div className={styles.graficoContainer}>
+                    {agendasBarbeiroSelecionado && agendasBarbeiroSelecionado.length > 0 ? (
+                      <Pie data={processarAgendasBarbeiroSelecionado()} options={opcoes} />
+                    ) : (
+                      <div className={styles.semDados}>
+                        <p>Sem dados para exibir neste período</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
