@@ -1,220 +1,583 @@
 .container {
-    padding: 2rem;
-    background: #f5f5f5;
-    min-height: 100vh;
-  }
-  
-  .title {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-  }
-  
-  .barbeirosGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem;
-    max-width: 1200px; /* Define uma largura máxima para o grid */
-    margin: 0 auto; /* Centraliza o grid horizontalmente */
-  }
-  
-  .barbeiroCard {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-  }
-  
-  .barbeiroCard:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  }
-  
-  .calendarIcon {
-    font-size: 2rem;
-    color: #ff7c20;
-    margin-bottom: 1rem;
-  }
-  
-  .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modalContent {
-    background: white;
-    width: 90%;
-    max-width: 1200px;
-    border-radius: 12px;
-    padding: 2rem;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  
-  .modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #eee;
-  }
-  
-  .weekNavigation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
-  }
-  
-  .weekNavigation button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #2c3e50;
-  }
-  
-  .calendario {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1rem;
-  }
-  
-  .dia {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 1rem;
-    min-height: 300px;
-  }
-  
-  .hoje {
-    border: 2px solid #ff7c20;
-  }
-  
-  .cabecalhoDia {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .cabecalhoDia span {
-    display: block;
-    color: #6c757d;
-    text-transform: capitalize;
-  }
-  
-  .cabecalhoDia strong {
-    font-size: 1.2rem;
-    color: #2c3e50;
-  }
-  
-  .agendamentos {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .agendamento {
-    background: white;
-    border-radius: 6px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
-  
-  .horario {
-    font-weight: 600;
-    color: #2c3e50;
-  }
-  
-  .servico {
-    color:black;
-    font-size: 0.9rem;
-  }
-  
-  .valor {
-    color: #27ae60;
-    font-weight: 600;
-  }
-  
-  .pagamento {
-    background: #e9ecef;
-    color: #2c3e50;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-  }
-  
-  .closeButton {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #6c757d;
-  }
-  .authModalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .authModalContent {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .authForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
+  padding: 2rem;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
 
-  
-  .authButton {
-    background: #ff7c20;
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
+.title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.containerTitle {
+  color: #ff7c20;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.dashboardCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.dashboardIcon {
+  font-size: 2rem;
+  color: #ff7c20;
+  margin-bottom: 0.5rem;
+}
+
+.dashboardTitle {
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.dashboardValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.barbeirosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.barbeiroCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.barbeiroCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.barbeiroImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.barbeiroName {
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.barbeiroType {
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.barbeiroButton {
+  background: #f8f9fa;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  color: #2c3e50;
+}
+
+.calendarIcon {
+  font-size: 2rem;
+  color: #ff7c20;
+  margin-bottom: 1rem;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  width: 95%; /* Aumentado de 90% para 95% para usar mais espaço da tela */
+  max-width: 1300px; /* Aumentado de 1200px para 1300px */
+  border-radius: 12px;
+  padding: 1.5rem; /* Reduzido de 2rem para 1.5rem */
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+}
+
+.searchInput {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 4px;
+  padding: 0.5rem;
+  max-width: 300px;
+}
+
+.searchIcon {
+  color: #6c757d;
+  margin-right: 0.5rem;
+}
+
+.searchField {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  color: black;
+}
+
+.statusFilter {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  color: black;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.weekNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.weekButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+}
+
+.weekText {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.weekNavigation button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.calendario {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem; /* Reduzido de 1rem para 0.75rem */
+  width: 100%; /* Garantir que use toda a largura */
+}
+
+.calendarioContainer {
+  flex: 1;
+  overflow-x: hidden; /* Alterado de auto para hidden */
+  display: flex;
+  border-radius: 8px;
+  width: 100%; /* Adicionado para garantir que ocupe todo o espaço disponível */
+}
+
+.calendarioGrid {
+  /* Remover min-width para permitir ajuste ao contêiner */
+  /* min-width: 900px; - Remover esta linha */
+  width: 100%; /* Usar 100% da largura disponível */
+  flex-shrink: 0;
+}
+
+.dia {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 0.75rem; /* Reduzido de 1rem para 0.75rem para economizar espaço */
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Adicionar largura mínima menor */
+  min-width: 0; /* Permite que os itens diminuam conforme necessário */
+}
+
+.hoje {
+  border: 2px solid #ff7c20;
+}
+
+.cabecalhoDia {
+  text-align: center;
+  margin-bottom: 0.75rem; /* Reduzido de 1rem */
+  padding: 0.5rem; /* Reduzido de 0.75rem */
+  background: #fff;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.cabecalhoDiaHoje {
+  background: #fff3e6;
+}
+
+.cabecalhoDia span {
+  display: block;
+  color: #6c757d;
+  text-transform: capitalize;
+}
+
+.cabecalhoDia strong {
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.diaTextHoje {
+  font-weight: bold;
+  color: #ff7c20 !important;
+}
+
+.ocupacaoStatus {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: #f8f9fa;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.agendamentos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Reduzido de 0.8rem */
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem; /* Reduzido de 0.75rem */
+  background: #fff;
+}
+
+.agendamento {
+  background: white;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agendamentoSelecionado {
+  background: #f8f9fa;
+}
+
+.statusContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.statusIcon {
+  display: flex;
+  align-items: center;
+}
+
+.statusLabel {
+  margin-left: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.servicoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clienteInfo {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.clienteIcon {
+  display: inline;
+  margin-right: 5px;
+}
+
+.semAgendamentos {
+  padding: 1rem;
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.horario {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.servico {
+  color: black;
+  font-size: 0.9rem;
+}
+
+.valor {
+  color: #27ae60;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.pagamento {
+  background: #e9ecef;
+  color: #2c3e50;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  display: inline-block;
+}
+
+.detalhesAgendamento {
+  width: 300px;
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.detalhesTitle {
+  color: #2c3e50;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detalhesText {
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.detalhesLabel {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.detalhesValue {
+  color: #27ae60;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.detalhesPhone {
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.phoneIcon {
+  margin-right: 0.5rem;
+}
+
+.statusButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  border-top: 2px solid #f0f0f0;
+  padding-top: 1.5rem;
+}
+
+.statusButton {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  background: #f8f9fa;
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.statusButtonActive {
+  color: white;
+}
+
+.statusPendente {
+  background: #f39c12;
+}
+
+.statusConcluido {
+  background: #27ae60;
+}
+
+.statusCancelado {
+  background: #e74c3c;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  height: calc(100vh - 300px);
+  max-height: 600px;
+  width: 100%; /* Garantir que use toda a largura disponível */
+}
+
+.authModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.authModalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.authButton {
+  background: #ff7c20;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.authButton:hover {
+  background: #e66a1a;
+}
+
+.lockIcon {
+  font-size: 2rem;
+  color: #ff7c20;
+  margin-bottom: 1rem;
+}
+
+.errorText {
+  color: red;
+  margin-top: 0.5rem;
+}
+
+.emptyMessage{
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Estilos para animação de troca de semana */
+.slideRight {
+  animation: slideInFromRight 0.3s forwards;
+}
+
+.slideLeft {
+  animation: slideInFromLeft 0.3s forwards;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
   }
-  
-  .authButton:hover {
-    background: #e66a1a;
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  .lockIcon {
-    font-size: 2rem;
-    color: #ff7c20;
-    margin-bottom: 1rem;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-  
-  .errorText {
-    color: red;
-    margin-top: 0.5rem;
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
+}
+
+.calendarioFade {
+  transition: opacity 0.15s ease-out;
+}
+
+.calendarioHidden {
+  opacity: 0;
+}
+
+.calendarioVisible {
+  opacity: 1;
+}
